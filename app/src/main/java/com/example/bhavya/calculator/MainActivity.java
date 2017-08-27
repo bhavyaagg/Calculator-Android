@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         btnDel = (Button) findViewById(R.id.btnDel);
         btnEqual = (Button) findViewById(R.id.btnEqual);
 
+        if (savedInstanceState != null) {
+            String text = savedInstanceState.getString("text");
+            tvResult.setText(text);
+            expression = savedInstanceState.getString("expression");
+        }
+
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -303,6 +309,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return String.valueOf(s.pop());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("expression", expression);
+        outState.putString("text", ((TextView) findViewById(R.id.tvResult)).getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
     @Override
